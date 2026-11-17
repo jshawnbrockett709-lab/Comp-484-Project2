@@ -8,3 +8,5 @@ I LOVE the runescape font and wanted to use it so badly but I just could not fig
 found someone saying that the actual font itself has an issue. I loaded the font file into chromium and was able to figure out what exact error I was getting
 with a network plugin. I had to go INTO THE FONT FILE and change a glyph reference that just didn't exist. I repackaged the entire font into a WOFF file and
 edited the original to remove the glyph pointer. This finally allows it to load using the intended font from my favorite MMO ever made (prob the best of all time).
+
+Enjoy the silly pet game with an OSRS twist on it!
