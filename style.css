@@ -10,7 +10,8 @@
 /* Load the OSRS font file so browsers can use it */
 @font-face {
   font-family: "RuneScape UF";
-  src: url("fonts/runescape_uf.ttf") format("truetype");
+  src: url("fonts/runescape_uf.woff") format("woff"),
+       url("fonts/runescape_uf.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;   /* show a normal font briefly instead of blank text so it just flows better*/
