@@ -1,82 +1,332 @@
+/* ===== Old School RuneScape inspired theme declarations =====
+   Palette (sampled from the in-game interface):
+   --stone-dark: panel border / page background
+   --stone:      interface panel fill
+   --gold:       headings and button text (OSRS orange)
+   --yellow:     stat values
+   --parchment:  chatbox background
+   Font: "RuneScape UF" is loaded from the fonts folder. */
+
+/* Load the OSRS font file so browsers can use it */
+@font-face {
+  font-family: "RuneScape UF";
+  src: url("fonts/runescape_uf.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;   /* show a normal font briefly instead of blank text so it just flows better*/
+}
+
+:root {
+  --stone-dark: #2b2519;
+  --stone: #494034;
+  --stone-light: #6e6451;
+  --gold: #ff981f;
+  --yellow: #ffff00;
+  --parchment: #cbc1a6;
+  --chat-blue: #0000ff;
+  --hp-green: #0f9a0f;
+  --hp-red: #c21010;
+  --font: "RuneScape UF", "Trebuchet MS", Verdana, sans-serif;
+}
 
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: helvetica, arial, sans-serif;
-    margin: 25px;
-  }
-  
-  main {
-    display:block;
-    height:175px;
-  }
-  
-  header {
-    border-bottom: 1px solid black;
-  }
-  
-  h1 {
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  p {
-    max-width: 600px;
-  }
-  
-  
-  li {
-    margin-bottom: 5px;
-  }
-  
-  footer {
-    padding-top: 25px;
-    border-top: 1px solid black;
-  }
-  
-  footer a {
-    float:left;
-    margin:5px;
-  }
-  
-  .pet-image {
-    height:250px;
-  }
-  
-  .dashboard div {
-    display:block;
-  }
-  
-  .pet-image-container {
-    float:left;
-    padding:10px;
-  }
-  
-  .dashboard {
-    float:left;
-    padding:20px;
-  }
-  
-  .button-container {
-    margin-top:20px;
-  }
-  
-  .button-container button {
-    width: 100px;
-      margin-right: 10px;
-      text-align: center;
-      display: inline-block;
-      float: left;
-    font-size:15px;
-    background-color: #1e2835;
-    border-color: #404853;
-    cursor:pointer;
-    background-image: linear-gradient(to bottom,rgba(246,246,246,.1)0%,rgba(30,40,53,0)66%);
-    color: #fafafa;
-  }
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+  background-color: #1b1710;
+  /* faint stone-ish texture */
+  background-image:
+    linear-gradient(45deg, #211c14 25%, transparent 25%, transparent 75%, #211c14 75%),
+    linear-gradient(45deg, #211c14 25%, transparent 25%, transparent 75%, #211c14 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Text in OSRS always has hard shadows so this helps the vibe */
+h1, p, div, span, strong, button {
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* ----- Title bar ----- */
+.title-bar {
+  max-width: 760px;
+  margin: 0 auto 12px;
+  padding: 8px 16px;
+  text-align: center;
+  background: var(--stone);
+  border: 3px solid var(--stone-dark);
+  outline: 2px solid var(--stone-light);
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: normal;
+  color: var(--gold);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  max-width: none;
+  font-size: 18px;
+  color: var(--yellow);
+}
+
+/* ----- Pet selector tabs and buttons ----- */
+.pet-tabs {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin: 0 auto 12px;
+}
+
+.pet-tab {
+  padding: 6px 14px;
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--gold);
+  background: var(--stone);
+  border: 2px solid var(--stone-dark);
+  border-top-color: var(--stone-light);
+  border-left-color: var(--stone-light);
+  cursor: pointer;
+}
+
+.pet-tab.active {
+  background: #6b5c3c;
+  color: var(--yellow);
+  border: 2px solid var(--stone-dark);
+  border-bottom-color: var(--stone-light);
+  border-right-color: var(--stone-light);
+}
+
+/* ----- Layout ----- */
+main {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: var(--stone);
+  border: 3px solid var(--stone-dark);
+  outline: 2px solid var(--stone-light);
+  padding: 12px;
+}
+
+/* ----- Pet stage ----- */
+.pet-image-container {
+  position: relative;      /* floating +/- numbers are positioned inside this box */
+  flex: 1 1 320px;
+  min-height: 330px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  /* Varrock farm picture fills the pet box (green is shown while it loads so the transition isn't too jarring) */
+  background-color: #4a6b2a;
+  background-image: url("images/varrock-farm.png");
+  background-size: cover;       /* fills the box, keeps the picture's proportions */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pet-image {
+  position: relative;
+  z-index: 1;
+  height: 250px;
+  max-width: 90%;
+  margin-bottom: 18px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+/* Used just in case a pet pic just doesn't load for some reason: tints the hound as a backup safety measure and looked a bit silly */
+.pet-image.tinted {
+  filter: hue-rotate(var(--tint, 0deg)) saturate(1.6);
+}
+
+.pet-shadow {
+  position: absolute;
+  bottom: 12px;
+  width: 60%;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ----- Dashboard ----- */
+.dashboard {
+  flex: 1 1 300px;
+}
+
+.stat-row {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+  color: var(--gold);
+}
+
+.stat-row strong {
+  font-weight: normal;   /* pixel font: no fake bold */
+  color: var(--yellow);
+}
+
+/* Hitpoints-style bars (couldn't really figure out how to do the OSRS damage splash.) */
+.bar {
+  height: 14px;
+  margin-top: 4px;
+  background: var(--hp-red);
+  border: 2px solid #000;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--hp-green);
+  transition: width 0.35s ease;
+}
+
+.bar-fill.energy-bar {
+  background: #e0c020;
+}
+
+/* ----- Buttons: 2x2 grid of stone color buttons ----- */
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.button-container button,
+.sound-button {
+  padding: 10px 6px;
+  font-family: var(--font);
+  font-size: 20px;
+  color: var(--gold);
+  background: #5a5040;
+  border: 2px solid var(--stone-dark);
+  border-top-color: var(--stone-light);
+  border-left-color: var(--stone-light);
+  cursor: pointer;
+}
+
+.button-container button:hover,
+.sound-button:hover {
+  color: #fff;
+  background: #6b5f4c;
+}
+
+.button-container button:active,
+.sound-button:active {
+  border: 2px solid var(--stone-dark);
+  border-bottom-color: var(--stone-light);
+  border-right-color: var(--stone-light);
+  padding-top: 11px;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.sound-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* ----- Chatbox (Thought it would be funny if the dog could talk, fits the vibe of OSRS)----- */
+.chatbox {
+  max-width: 760px;
+  height: 150px;
+  margin: 12px auto 0;
+  padding: 6px 10px;
+  overflow-y: auto;
+  background: var(--parchment);
+  border: 3px solid var(--stone-dark);
+  outline: 2px solid var(--stone-light);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.chat-line {
+  color: #000;
+  text-shadow: none;
+}
+
+.chat-line span,
+.chat-line strong {
+  text-shadow: none;
+}
+
+.chat-name {
+  font-weight: normal;
+  color: var(--chat-blue);
+}
+
+.chat-game {
+  color: #800000;
+}
+
+/* ----- Floating numbers (+2 happiness etc.) ----- */
+.floater {
+  position: absolute;
+  z-index: 5;
+  font-size: 24px;
+  font-weight: normal;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.floater.good { color: var(--yellow); }
+.floater.bad  { color: #ff4040; }
+
+/* ----- Pet animations (class added by script.js for each action) ----- */
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(-30px); }
+  60%      { transform: translateY(0); }
+  80%      { transform: translateY(-10px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  20%      { transform: rotate(-8deg) translateY(-8px); }
+  40%      { transform: rotate(8deg); }
+  60%      { transform: rotate(-8deg) translateY(-8px); }
+  80%      { transform: rotate(8deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-14px); }
+  30%, 60%, 90% { transform: translateX(14px); }
+}
+
+@keyframes snooze {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(0.94, 0.9) translateY(6px); }
+}
+
+.anim-hop    { animation: hop 0.6s ease; }
+.anim-wiggle { animation: wiggle 0.7s ease; }
+.anim-shake  { animation: shake 0.6s linear; }
+.anim-snooze { animation: snooze 1.2s ease-in-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-hop, .anim-wiggle, .anim-shake, .anim-snooze { animation: none; }
+  .bar-fill { transition: none; }
+}
